@@ -1,37 +1,28 @@
 "use client";
 
 import * as React from "react";
-import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react";
-
-import { NavDocuments } from "@/components/nav-documents";
 import { NavMain } from "@/components/nav-main";
-import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  ChartNoAxesColumn,
+  Cpu,
+  CreditCard,
+  File,
+  HandCoins,
+  Package2,
+  ScrollText,
+  Server,
+  Users,
+  Wallet,
+} from "lucide-react";
+import Image from "next/image";
+import esimLogo from "@/public/esim-logo.webp";
 
 const data = {
   user: {
@@ -42,110 +33,81 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
+      url: "/reseller",
+      icon: ChartNoAxesColumn,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
+      title: "Buy Packages",
+      url: "/reseller/data-only-esim",
+      icon: Package2,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
+      title: "Dealers",
+      url: "/reseller/dealers",
+      icon: Users,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
+      title: "Credits",
+      url: "/reseller/credits",
+      icon: CreditCard,
     },
     {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
+      title: "Purchases",
+      icon: Cpu,
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "View eSIMs",
+          icon: "",
+          url: "/resller/my-esims",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Assigned Bundles",
+          url: "/reseller/bundles-old",
         },
       ],
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
+      title: "Pricing",
+      icon: HandCoins,
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "View Pricing",
+          url: "/reseller/pricing",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Set Prices",
+          url: "/reseller/pricing/manage",
         },
       ],
     },
     {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
+      title: "Policies",
+      icon: File,
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Communication Policy",
+          url: "/reseller/communication-policy",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Refund Policy",
+          url: "/reseller/refund-policy",
         },
       ],
     },
-  ],
-  navSecondary: [
     {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
+      title: "Topup Account",
+      url: "/reseller/topup",
+      icon: Wallet,
     },
     {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
+      title: "API Docs",
+      url: "/reseller/docs",
+      icon: ScrollText,
     },
     {
-      title: "Search",
+      title: "Server Status",
       url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
+      icon: Server,
     },
   ],
 };
@@ -153,25 +115,13 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
-              <a href="#">
-                <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className="group-data-[state=collapsed]:h-12 ">
+        <div className="h-12 w-30 relative group-data-[state=collapsed]:hidden ">
+          <Image src={esimLogo} alt="esim logo" fill className="object-cover" />
+        </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="mt-4">
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
