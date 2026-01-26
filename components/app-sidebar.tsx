@@ -58,7 +58,7 @@ const data = {
         {
           title: "View eSIMs",
           icon: "",
-          url: "/resller/my-esims",
+          url: "/reseller/my-esims",
         },
         {
           title: "Assigned Bundles",
@@ -116,11 +116,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="group-data-[state=collapsed]:h-12 ">
-        <div className="h-12 w-30 relative group-data-[state=collapsed]:hidden ">
+        <div className="h-14 w-34 relative group-data-[state=collapsed]:hidden ">
           <Image src={esimLogo} alt="esim logo" fill className="object-cover" />
         </div>
       </SidebarHeader>
-      <SidebarContent className="mt-4">
+      <SidebarContent className="mt-3.5">
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>

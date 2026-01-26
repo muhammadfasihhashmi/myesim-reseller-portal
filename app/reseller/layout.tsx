@@ -11,7 +11,7 @@ export default function RootLayout({
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "calc(var(--spacing) * 65)",
+          "--sidebar-width": "calc(var(--spacing) * 75)",
           "--header-height": "calc(var(--spacing) * 12)",
         } as React.CSSProperties
       }

@@ -46,9 +46,9 @@ export function NavMain({ items }: { items: NavItem[] }) {
               <Collapsible key={item.title} className="group/collapsible">
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
-                    <SidebarMenuButton tooltip={item.title} className="py-4.25">
+                    <SidebarMenuButton tooltip={item.title} className="py-5">
                       {item.icon && <item.icon />}
-                      <span className="font-semibold text-[14px]">
+                      <span className="font-semibold text-[16px]">
                         {item.title}
                       </span>
                       <IconChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
@@ -64,7 +64,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                             className={`py-3 ${pathname === subItem.url ? "bg-bg-primary text-white" : ""}`}
                           >
                             <Link href={subItem.url}>
-                              <span className="font-semibold text-[14px]">
+                              <span className="font-semibold text-[15px]">
                                 {subItem.title}
                               </span>
                             </Link>
@@ -80,11 +80,11 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 <SidebarMenuButton
                   asChild
                   tooltip={item.title}
-                  className={`py-4.25 ${item.url === pathname ? "bg-bg-primary text-white" : ""}`}
+                  className={`py-5 ${item.url === pathname ? "bg-bg-primary text-white" : ""}`}
                 >
                   <Link href={item.url!} className="flex items-center gap-2.5">
                     {item.icon && <item.icon size={12} />}
-                    <span className="font-semibold text-14px">
+                    <span className="font-semibold text-[16px]">
                       {item.title}
                     </span>
                   </Link>
