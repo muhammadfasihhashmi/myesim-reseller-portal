@@ -61,7 +61,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
                             asChild
-                            className={`py-3 ${pathname === subItem.url ? "bg-bg-primary text-white" : ""}`}
+                            className={`py-3 ${pathname === subItem.url ? "bg-bg-primary text-background hover:bg-bg-primary hover:text-background" : ""}`}
                           >
                             <Link href={subItem.url}>
                               <span className="font-semibold text-[15px]">
@@ -80,7 +80,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 <SidebarMenuButton
                   asChild
                   tooltip={item.title}
-                  className={`py-5 ${item.url === pathname ? "bg-bg-primary text-white" : ""}`}
+                  className={`py-5 ${item.url === pathname ? "bg-bg-primary text-background hover:bg-bg-primary hover:text-background" : ""}`}
                 >
                   <Link href={item.url!} className="flex items-center gap-2.5">
                     {item.icon && <item.icon size={12} />}
