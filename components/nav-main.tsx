@@ -3,8 +3,6 @@
 import { IconChevronRight } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LucideIcon } from "lucide-react";
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -21,22 +19,10 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
-
-type NavItem = {
-  title: string;
-  url?: string;
-  icon?: LucideIcon;
-  items?: {
-    title: string;
-    url: string;
-  }[];
-};
+import { NavItem } from "./app-sidebar";
 
 export function NavMain({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
-  console.log(pathname);
-  console.log(items);
-
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">

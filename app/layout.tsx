@@ -1,4 +1,6 @@
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -7,7 +9,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">{children}</body>
+      <body className="">
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <Toaster position="top-center" richColors />
+      </body>
     </html>
   );
 }

@@ -2,11 +2,9 @@
 
 import * as React from "react";
 import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import {
@@ -15,6 +13,7 @@ import {
   CreditCard,
   File,
   HandCoins,
+  LucideIcon,
   Package2,
   ScrollText,
   Server,
@@ -24,8 +23,20 @@ import {
 import Image from "next/image";
 import esimLogo from "@/public/esim-logo.webp";
 
+type UserRole = "reseller" | "dealer" | "affiliate";
+
+export type NavItem = {
+  title: string;
+  url?: string;
+  icon?: LucideIcon;
+  items?: {
+    title: string;
+    url: string;
+  }[];
+};
+
 const data = {
-  navMain: [
+  reseller: [
     {
       title: "Dashboard",
       url: "/reseller",
@@ -52,7 +63,6 @@ const data = {
       items: [
         {
           title: "View eSIMs",
-          icon: "",
           url: "/reseller/my-esims",
         },
         {
@@ -105,9 +115,27 @@ const data = {
       icon: Server,
     },
   ],
+  dealer: [
+    { title: "Dashboard", url: "/dealer", icon: ChartNoAxesColumn },
+    { title: "Orders", url: "/dealer/orders", icon: Package2 },
+    { title: "Credits", url: "/dealer/credits", icon: CreditCard },
+  ],
+
+  affiliate: [
+    { title: "Dashboard", url: "/affiliate", icon: ChartNoAxesColumn },
+    { title: "My Earnings", url: "/affiliate/earnings", icon: Wallet },
+    { title: "Referrals", url: "/affiliate/referrals", icon: Users },
+  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const role: UserRole = "reseller";
+  let navMain: NavItem[] = [];
+
+  if (role === "reseller") navMain = data.reseller;
+  else if (role === "dealer") navMain = data.dealer;
+  else if (role === "affiliate") navMain = data.affiliate;
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="group-data-[state=collapsed]:h-12 ">
@@ -116,7 +144,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </div>
       </SidebarHeader>
       <SidebarContent className="mt-3.5">
-        <NavMain items={data.navMain} />
+        <NavMain items={navMain} />
       </SidebarContent>
     </Sidebar>
   );
