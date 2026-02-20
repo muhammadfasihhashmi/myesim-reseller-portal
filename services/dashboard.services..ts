@@ -1,3 +1,4 @@
+import { searchParamsType } from "@/app/(dashboards)/reseller/page";
 import { auth } from "@/lib/auth";
 import { format } from "date-fns";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
@@ -5,10 +6,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 const D = new Date();
 const toDay = new Date(D.getFullYear(), D.getMonth(), D.getDate());
 
-export async function getStatsOverview(range: {
-  start_date: string;
-  end_date: string;
-}) {
+export async function getStatsOverview(range: searchParamsType) {
   try {
     const session = await auth();
     if (!session) throw new Error("session is missing");

@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import esimLogo from "@/public/esim-logo.webp";
-// import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 type UserRole = "reseller" | "dealer" | "affiliate";
 
@@ -130,11 +130,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // const session = useSession();
+  const session = useSession();
 
-  // const role: UserRole =
-  //   (session?.data?.user?.role.toLowerCase() as UserRole) ?? "";
-  const role: UserRole = "reseller";
+  const role: UserRole =
+    (session?.data?.user?.role.toLowerCase() as UserRole) ?? "";
 
   let navMain: NavItem[] = [];
 
