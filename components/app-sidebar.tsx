@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import esimLogo from "@/public/esim-logo.webp";
+// import { useSession } from "next-auth/react";
 
 type UserRole = "reseller" | "dealer" | "affiliate";
 
@@ -129,7 +130,12 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  // const session = useSession();
+
+  // const role: UserRole =
+  //   (session?.data?.user?.role.toLowerCase() as UserRole) ?? "";
   const role: UserRole = "reseller";
+
   let navMain: NavItem[] = [];
 
   if (role === "reseller") navMain = data.reseller;
@@ -140,10 +146,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="group-data-[state=collapsed]:h-12 ">
         <div className="h-14 w-34 relative group-data-[state=collapsed]:hidden ">
-          <Image src={esimLogo} alt="esim logo" fill className="object-cover" />
+          <Image
+            src={esimLogo}
+            alt="esim logo"
+            fill
+            loading="eager"
+            sizes="100%"
+            className="object-cover"
+          />
         </div>
       </SidebarHeader>
-      <SidebarContent className="mt-3.5">
+      <SidebarContent className="mt-6">
         <NavMain items={navMain} />
       </SidebarContent>
     </Sidebar>
