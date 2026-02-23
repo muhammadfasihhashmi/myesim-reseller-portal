@@ -122,13 +122,13 @@ function LoginForm() {
                 </Field>
               )}
             />
-            <div className="w-37.5 font-semibold hover:text-primary-background hover:underline cursor-pointer">
+            <div className="w-38 font-semibold hover:text-primary-background hover:underline cursor-pointer">
               <Link href={"#"}>Forgot Password ?</Link>
             </div>
             <Button
               type="submit"
               disabled={isPending}
-              className="bg-primary-background hover:bg-primary-background/90 cursor-pointer h-11 text-lg"
+              className="bg-primary hover:bg-primary/90 cursor-pointer h-11 text-lg"
             >
               {isPending ? <Spinner /> : "Login"}
             </Button>
