@@ -1,9 +1,10 @@
 import { getSummaryCard } from "@/services/dashboard.services.";
 import StatCard from "./StatCard";
 import { ArrowBigDown } from "lucide-react";
+import { searchParamsType } from "@/app/(dashboards)/reseller/page";
 
-async function SummaryCard() {
-  const data = await getSummaryCard();
+async function SummaryCard({ range }: { range: searchParamsType }) {
+  const data = await getSummaryCard(range);
   const summaryData = [
     {
       title: "Balance",
@@ -13,14 +14,14 @@ async function SummaryCard() {
       iconColor: "red",
     },
     {
-      title: "Esim_sold",
+      title: "Esim sold",
       amount: data.summerycards.esim_sold,
       iconName: ArrowBigDown,
       bgColor: "bg-blue-200",
       iconColor: "blue",
     },
     {
-      title: "Bundle_sold",
+      title: "Bundle sold",
       amount: data.summerycards.bundle_sold,
       iconName: ArrowBigDown,
       bgColor: "bg-green-200",

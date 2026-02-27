@@ -1,5 +1,5 @@
 import { LoginFormSchemaType } from "@/lib/zod/LoginSchema";
-import { LoginUserApiResponse } from "@/types/services.types";
+import { LoginUserApiResponse } from "@/types/auth.types";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
 
 export async function loginUser(credential: LoginFormSchemaType) {

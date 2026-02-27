@@ -1,5 +1,5 @@
 import { loginUser } from "@/services/auth.services";
-import { LoginUser, LoginUserApiResponse } from "@/types/services.types";
+import { LoginUser, LoginUserApiResponse } from "@/types/auth.types";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
@@ -28,7 +28,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             accessToken: data.access_token,
             ...data.user,
           };
-          console.log("✅ 3. Returning user object:", userObject);
           return userObject;
         } catch (error) {
           console.log("Authorize error:", error);

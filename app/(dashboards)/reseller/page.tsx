@@ -1,4 +1,5 @@
 import CarouselBanner from "@/components/dashboard/CarouselBanner";
+import Chart from "@/components/dashboard/Chart";
 import Statistics from "@/components/dashboard/Statistics";
 
 export type searchParamsType = {
@@ -10,16 +11,12 @@ async function page({
 }: {
   searchParams: Promise<searchParamsType>;
 }) {
-  const { start_date, end_date } = await searchParams;
-  const range = {
-    start_date,
-    end_date,
-  };
   return (
     <section>
       <CarouselBanner />
       <div className="border-t border-muted-foreground/20"></div>
-      <Statistics range={range} />
+      <Statistics searchParams={searchParams} />
+      <Chart searchParams={searchParams} />
     </section>
   );
 }
