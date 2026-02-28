@@ -9,10 +9,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { format, isValid, parseISO, subDays } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { type DateRange } from "react-day-picker";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 const durationsPreSet = [
   {
@@ -45,6 +45,7 @@ export function DatePickerFilter() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [isPending, setTransition] = useTransition();
 
   const start = searchParams.get("start_date");
   const end = searchParams.get("end_date");
@@ -84,9 +85,17 @@ export function DatePickerFilter() {
     const toISO = format(date.to, "yyyy-MM-dd");
     params.set("start_date", fromISO);
     params.set("end_date", toISO);
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-    setOpen(false);
+
+    setTransition(() => {
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    });
   };
+
+  useEffect(() => {
+    if (!isPending) {
+      setTimeout(() => setOpen(false), 0);
+    }
+  }, [isPending]);
 
   const clearParams = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -191,7 +200,14 @@ export function DatePickerFilter() {
                 clear
               </Button>
               <Button onClick={updateParams} className="cursor-pointer">
-                update
+                {isPending ? (
+                  <>
+                    updating
+                    <Loader2 className="animate-spin" />
+                  </>
+                ) : (
+                  "update"
+                )}
               </Button>
             </div>
           </div>

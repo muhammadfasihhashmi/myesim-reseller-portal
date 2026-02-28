@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,18 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { ChevronsUpDown, LogOut, User } from "lucide-react";
+import Image from "next/image";
+import { LoginUser } from "@/types/auth.types";
+import { signOut } from "next-auth/react";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser({ user }: { user: LoginUser }) {
+  const { email, name, image_url } = user;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,15 +24,14 @@ export function NavUser({
           variant="secondary"
           className="bg-background h-14 w-full hover:bg-muted"
         >
-          <Avatar className="h-10 w-10 rounded-lg grayscale">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-          </Avatar>
+          <div className="mr-1 h-10 w-10 rounded-lg relative">
+            <Image src={image_url} alt={name} fill className="object-contain" />
+          </div>
 
           <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-medium">{user.name}</span>
+            <span className="truncate font-medium">{name}</span>
             <span className="truncate text-xs text-muted-foreground">
-              {user.email}
+              {email}
             </span>
           </div>
 
@@ -49,16 +43,20 @@ export function NavUser({
       <DropdownMenuContent align="start" className="w-64">
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-            </Avatar>
+            <div className="h-8 w-8 rounded-lg relative">
+              <Image
+                src={image_url}
+                alt={name}
+                fill
+                className="object-contain"
+              />
+            </div>
 
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">{user.name}</span>
+              <span className="truncate font-medium">{name}</span>
 
               <span className="text-muted-foreground truncate text-xs">
-                {user.email}
+                {email}
               </span>
             </div>
           </div>
@@ -68,8 +66,8 @@ export function NavUser({
           Profile
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="text-destructive">
-          <LogOut className="text-destructive" />
+        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
+          <LogOut />
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>
