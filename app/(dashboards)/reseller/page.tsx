@@ -1,27 +1,63 @@
+import AllTimeStats from "@/components/dashboard/AllTimeStats";
 import CarouselBanner from "@/components/dashboard/CarouselBanner";
-import Chart from "@/components/dashboard/Chart";
-import Statistics from "@/components/dashboard/Statistics";
+import { DatePickerFilter } from "@/components/dashboard/DatePickerFilter";
+import GetCustomerActivityChart from "@/components/dashboard/GetCustomerActivityChart";
+import GetMonthlySalesAndProfitChart from "@/components/dashboard/GetMonthlySalesAndProfitChart";
+import GetStatsOverview from "@/components/dashboard/GetStatsOverview";
+import GetSummaryCard from "@/components/dashboard/GetSummaryCard";
+import { ChartSkeleton } from "@/components/skeletons/ChartSkeleton";
+import { StateCardSkeleton } from "@/components/skeletons/StatCardSkeleton";
+import { Card } from "@/components/ui/card";
 import { Suspense } from "react";
 
 export type searchParamsType = {
   [key: string]: string | string[] | undefined;
 };
 
-async function page({
-  searchParams,
-}: {
-  searchParams: Promise<searchParamsType>;
-}) {
+function page({ searchParams }: { searchParams: Promise<searchParamsType> }) {
   return (
     <section>
       <CarouselBanner />
       <div className="border-t border-muted-foreground/20"></div>
-      <Suspense>
-        <Statistics searchParams={searchParams} />
-      </Suspense>
-      <Suspense>
-        <Chart searchParams={searchParams} />
-      </Suspense>
+      <div>
+        <div className="flex items-center py-6 gap-6">
+          <h1 className="font-semibold text-h1">Statistics</h1>
+          <Suspense fallback={null}>
+            <DatePickerFilter />
+          </Suspense>
+        </div>
+
+        <Card className="p-5">
+          <h2 className="font-semibold text-body">Stats Overview</h2>
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <Suspense fallback={<StateCardSkeleton count={8} />}>
+              <GetStatsOverview searchParams={searchParams} />
+            </Suspense>
+          </div>
+
+          <h2 className="font-semibold text-body">Summary Cards</h2>
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <Suspense fallback={<StateCardSkeleton count={3} />}>
+              <GetSummaryCard searchParams={searchParams} />
+            </Suspense>
+          </div>
+
+          <h2 className="font-semibold text-body">All Time Statistics</h2>
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <Suspense fallback={<StateCardSkeleton count={6} />}>
+              <AllTimeStats />
+            </Suspense>
+          </div>
+        </Card>
+      </div>
+      <div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Suspense fallback={<ChartSkeleton />}>
+          <GetMonthlySalesAndProfitChart />
+        </Suspense>
+        <Suspense fallback={<ChartSkeleton />}>
+          <GetCustomerActivityChart searchParams={searchParams} />
+        </Suspense>
+      </div>
     </section>
   );
 }

@@ -15,7 +15,7 @@ export function ChartSkeleton() {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <Skeleton className="h-40" />
+        <Skeleton className="h-70" />
       </CardContent>
       <CardFooter>
         <Skeleton className="h-4 w-20" />
