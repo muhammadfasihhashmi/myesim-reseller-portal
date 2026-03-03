@@ -1,11 +1,11 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import BackButton from "./layout/BackButton";
-import UserBalance from "./layout/UserBalance";
+import BackButton from "./BackButton";
+import UserBalance from "./UserBalance";
 import { Suspense } from "react";
-import GetNavUser from "./layout/GetNavUser";
-import NavUserSkeletons from "./skeletons/NavUserSkeletons";
-import UserBalanceSkeleton from "./skeletons/UserBalanceSkeleton";
+import GetNavUser from "./GetNavUser";
+import NavUserSkeletons from "../skeletons/NavUserSkeletons";
+import UserBalanceSkeleton from "../skeletons/UserBalanceSkeleton";
 
 export function SiteHeader() {
   return (

@@ -7,12 +7,51 @@ import GetStatsOverview from "@/components/dashboard/GetStatsOverview";
 import GetSummaryCard from "@/components/dashboard/GetSummaryCard";
 import { ChartSkeleton } from "@/components/skeletons/ChartSkeleton";
 import { StateCardSkeleton } from "@/components/skeletons/StatCardSkeleton";
+import { DataTable } from "@/components/tables/DataTable";
 import { Card } from "@/components/ui/card";
+import { ColumnDef } from "@tanstack/react-table";
 import { Suspense } from "react";
 
 export type searchParamsType = {
   [key: string]: string | string[] | undefined;
 };
+
+type Payment = {
+  id: string;
+  name: string;
+  total_packages: number;
+  total_price: number;
+};
+
+export const columns: ColumnDef<Payment>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "total_packages",
+    header: "Total Packages",
+  },
+  {
+    accessorKey: "total_price",
+    header: "Total Price",
+  },
+];
+
+export const payments: Payment[] = [
+  {
+    id: "728ed52f",
+    name: "John Doe",
+    total_packages: 10,
+    total_price: 100,
+  },
+  {
+    id: "489e1d42",
+    name: "Jane Doe",
+    total_packages: 20,
+    total_price: 200,
+  },
+];
 
 function page({ searchParams }: { searchParams: Promise<searchParamsType> }) {
   return (
@@ -57,6 +96,9 @@ function page({ searchParams }: { searchParams: Promise<searchParamsType> }) {
         <Suspense fallback={<ChartSkeleton />}>
           <GetCustomerActivityChart searchParams={searchParams} />
         </Suspense>
+      </div>
+      <div className="py-6">
+        <DataTable columns={columns} data={payments} />
       </div>
     </section>
   );
