@@ -5,53 +5,52 @@ import GetCustomerActivityChart from "@/components/dashboard/GetCustomerActivity
 import GetMonthlySalesAndProfitChart from "@/components/dashboard/GetMonthlySalesAndProfitChart";
 import GetStatsOverview from "@/components/dashboard/GetStatsOverview";
 import GetSummaryCard from "@/components/dashboard/GetSummaryCard";
+// import TopTenTable from "@/components/dashboard/TopTenTable";
 import { ChartSkeleton } from "@/components/skeletons/ChartSkeleton";
 import { StateCardSkeleton } from "@/components/skeletons/StatCardSkeleton";
+import { columns, Payment } from "@/components/tables/Column";
 import { DataTable } from "@/components/tables/DataTable";
-import { Card } from "@/components/ui/card";
-import { ColumnDef } from "@tanstack/react-table";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Suspense } from "react";
+
+const payments: Payment[] = [
+  { name: "John Doe", total_packages: 10, total_price: 100 },
+  { name: "Jane Smith", total_packages: 15, total_price: 180 },
+  { name: "Michael Brown", total_packages: 8, total_price: 95 },
+  { name: "Emily Davis", total_packages: 22, total_price: 260 },
+  { name: "Daniel Wilson", total_packages: 5, total_price: 60 },
+  { name: "Olivia Taylor", total_packages: 18, total_price: 210 },
+  { name: "James Anderson", total_packages: 12, total_price: 140 },
+  { name: "Sophia Thomas", total_packages: 25, total_price: 300 },
+  { name: "William Jackson", total_packages: 9, total_price: 110 },
+  { name: "Isabella White", total_packages: 14, total_price: 165 },
+  { name: "Benjamin Harris", total_packages: 30, total_price: 350 },
+  { name: "Mia Martin", total_packages: 7, total_price: 80 },
+  { name: "Lucas Thompson", total_packages: 16, total_price: 195 },
+  { name: "Charlotte Garcia", total_packages: 11, total_price: 130 },
+  { name: "Henry Martinez", total_packages: 20, total_price: 240 },
+  { name: "Amelia Robinson", total_packages: 6, total_price: 75 },
+  { name: "Alexander Clark", total_packages: 19, total_price: 225 },
+  { name: "Evelyn Rodriguez", total_packages: 13, total_price: 150 },
+  { name: "Sebastian Lewis", total_packages: 24, total_price: 290 },
+  { name: "Harper Lee", total_packages: 4, total_price: 50 },
+  { name: "Jack Walker", total_packages: 17, total_price: 205 },
+  { name: "Abigail Hall", total_packages: 21, total_price: 255 },
+  { name: "Matthew Allen", total_packages: 26, total_price: 320 },
+  { name: "Ella Young", total_packages: 9, total_price: 115 },
+  { name: "David King", total_packages: 14, total_price: 170 },
+  { name: "Scarlett Wright", total_packages: 23, total_price: 275 },
+];
 
 export type searchParamsType = {
   [key: string]: string | string[] | undefined;
 };
-
-type Payment = {
-  id: string;
-  name: string;
-  total_packages: number;
-  total_price: number;
-};
-
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "total_packages",
-    header: "Total Packages",
-  },
-  {
-    accessorKey: "total_price",
-    header: "Total Price",
-  },
-];
-
-export const payments: Payment[] = [
-  {
-    id: "728ed52f",
-    name: "John Doe",
-    total_packages: 10,
-    total_price: 100,
-  },
-  {
-    id: "489e1d42",
-    name: "Jane Doe",
-    total_packages: 20,
-    total_price: 200,
-  },
-];
 
 function page({ searchParams }: { searchParams: Promise<searchParamsType> }) {
   return (
@@ -97,8 +96,22 @@ function page({ searchParams }: { searchParams: Promise<searchParamsType> }) {
           <GetCustomerActivityChart searchParams={searchParams} />
         </Suspense>
       </div>
-      <div className="py-6">
-        <DataTable columns={columns} data={payments} />
+      <div className="">
+        <Card>
+          <CardHeader>
+            <CardTitle>Top 10 Overview</CardTitle>
+            <CardDescription>
+              See the leading countries, packages, and dealers for eSIM at a
+              glance.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {/* <TopTenTable /> */}
+            <Suspense>
+              <DataTable columns={columns} data={payments} />
+            </Suspense>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
